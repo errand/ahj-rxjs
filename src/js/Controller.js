@@ -10,14 +10,12 @@ export default class Controller {
   constructor(ui) {
     this.ui = ui;
     this.messages = new Set();
-    this.URL = 'http://localhost:7070/?method=allTickets';
+    this.URL = 'http://localhost:7070/messages/unread';
   }
 
   init() {
     this.ui.drawUi();
     this.subscribeStream();
-    this.btn = document.querySelector('.btn');
-    this.btn.addEventListener('click', this.unSubscribe.bind(this));
   }
 
   subscribeStream() {
@@ -53,13 +51,5 @@ export default class Controller {
       const message = new Post(elem);
       message.init();
     });
-  }
-
-  unSubscribe(e) {
-    if (!e.target.classList.contains('btn')) {
-      return;
-    }
-    e.preventDefault();
-    this.messagesStream$.unsubscribe();
   }
 }
