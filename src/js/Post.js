@@ -43,6 +43,7 @@ export default class Post {
       return;
     }
     const result = text.splice(0, 15);
+    // eslint-disable-next-line no-param-reassign
     data.body = result.toString().replaceAll(',', '').concat('...');
   }
 }

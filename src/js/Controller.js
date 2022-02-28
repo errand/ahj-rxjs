@@ -29,6 +29,7 @@ export default class Controller {
             return newMsgs;
           }),
           catchError((err) => {
+            // eslint-disable-next-line no-unused-expressions
             err.response === null
               ? this.messagesStream$.unsubscribe()
               : of([]);
