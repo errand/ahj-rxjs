@@ -1,8 +1,6 @@
 import { ajax } from 'rxjs/ajax';
-import { from, interval, of } from 'rxjs';
-import {
-  filter, map, mergeMap, catchError,
-} from 'rxjs/operators';
+import { interval, of } from 'rxjs';
+import { map, mergeMap, catchError } from 'rxjs/operators';
 
 import Post from './Post';
 
@@ -10,7 +8,7 @@ export default class Controller {
   constructor(ui) {
     this.ui = ui;
     this.messages = new Set();
-    this.URL = 'http://localhost:7070/messages/unread';
+    this.URL = 'https://errand-ahj-rxjs.herokuapp.com/messages/unread';
   }
 
   init() {

@@ -23,6 +23,7 @@ export default class Post {
     const post = this.addPost(this.data);
 
     panel.prepend(post);
+    setTimeout(() => post.classList.add('show'), 0);
   }
 
   addPost() {
