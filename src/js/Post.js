@@ -30,8 +30,4 @@ export default class Post {
     const subString = str.substr(0, n - 1);
     return `${subString}&hellip;`;
   }
-
-  formatDate(timestamp) {
-
-  }
 }
