@@ -1,10 +1,8 @@
+import moment from 'moment';
+
 export default class Post {
   constructor(data) {
     this.data = data;
-  }
-
-  init() {
-    this.bindToDOM();
   }
 
   template(data) {
@@ -12,38 +10,28 @@ export default class Post {
     div.classList.add('post');
     div.dataset.id = data.id;
     div.innerHTML = `<div class="author">${data.from}, </div>
-          <div class="content">${data.body}</div>
-          <div class="datetime">${data.received}</div> `;
+          <div class="content">${this.truncateText(data.body, 15)}</div>
+          <div class="datetime">${moment(data.received).format('hh:mm DD.MM.YYYY')}</div> `;
     return div;
   }
 
-  bindToDOM() {
-    const panel = document.querySelector('.tickets');
-
-    const post = this.addPost(this.data);
-
-    panel.prepend(post);
-    setTimeout(() => post.classList.add('show'), 0);
-  }
-
-  addPost() {
+  create() {
     if (this.data) {
-      this.getFormattedText(this.data);
-
       const result = this.template(this.data);
+      setTimeout(() => result.classList.add('show'), 0);
 
       return result;
     }
     return false;
   }
 
-  getFormattedText(data) {
-    const text = data.body.split('');
-    if (text.length <= 15) {
-      return;
-    }
-    const result = text.splice(0, 15);
-    // eslint-disable-next-line no-param-reassign
-    data.body = result.toString().replaceAll(',', '').concat('...');
+  truncateText(str, n) {
+    if (str.length <= n) { return str; }
+    const subString = str.substr(0, n - 1);
+    return `${subString}&hellip;`;
+  }
+
+  formatDate(timestamp) {
+
   }
 }

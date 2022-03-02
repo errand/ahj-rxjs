@@ -17,6 +17,7 @@
   "repository": "https://github.com/errand/ahj-rxjs",
   "dependencies": {
     "core-js": "^3.20.2",
+    "moment": "^2.29.1",
     "normalize.css": "^8.0.1",
     "rxjs": "^7.5.4"
   },

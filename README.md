@@ -1,5 +1,6 @@
 # HTTP Backend
-[![Build status](https://ci.appveyor.com/api/projects/status/tlk53gh440dl0vnk?svg=true)](https://ci.appveyor.com/project/errand/ahj-http-backend)
+[![Build status](https://ci.appveyor.com/api/projects/status/hrii2grk3s3k2yag?svg=true)](https://ci.appveyor.com/project/errand/ahj-rxjs)
+
 
 ## Install
 `npm i`
@@ -8,6 +9,6 @@
 ## Build
 `npm run build`
 ## Demo
-[GH Pages](https://errand.github.io/ahj-sse-ws-chat-frontend/) 
+[GH Pages](https://errand.github.io/ahj-rxjs/) 
 
 ---

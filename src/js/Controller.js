@@ -1,6 +1,6 @@
 import { ajax } from 'rxjs/ajax';
 import { interval, of } from 'rxjs';
-import { map, mergeMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 
 import Post from './Post';
 
@@ -9,6 +9,7 @@ export default class Controller {
     this.ui = ui;
     this.messages = new Set();
     this.URL = 'https://errand-ahj-rxjs.herokuapp.com/messages/unread';
+    // this.URL = 'http://localhost:7070/messages/unread';
   }
 
   init() {
@@ -17,38 +18,22 @@ export default class Controller {
   }
 
   subscribeStream() {
+    const getRequest = ajax.getJSON(this.URL);
     this.messagesStream$ = interval(2000)
       .pipe(
-        mergeMap(() => ajax.getJSON(this.URL).pipe(
-          map((response) => {
-            const newMsgs = response.messages.filter(
-              (message) => !this.messages.has(message.id),
-            );
-
-            newMsgs.forEach((message) => this.messages.add(message.id));
-            return newMsgs;
-          }),
-          catchError((err) => {
-            // eslint-disable-next-line no-unused-expressions
-            err.response === null
-              ? this.messagesStream$.unsubscribe()
-              : of([]);
-          }),
+        switchMap(() => getRequest.pipe(
+          map((response) => response.messages.filter(
+            message => !this.messages.has(message.id),
+          )),
+          catchError(err => of(false)),
         )),
       )
 
       .subscribe((response) => {
-        this.getValue(response);
+        response.forEach(el => {
+          const post = new Post(el);
+          this.ui.chatSection.prepend(post.create());
+        });
       });
-  }
-
-  getValue(obj) {
-    if (!obj.length) {
-      return;
-    }
-    obj.forEach((elem) => {
-      const message = new Post(elem);
-      message.init();
-    });
   }
 }

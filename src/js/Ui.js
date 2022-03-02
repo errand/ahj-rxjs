@@ -2,6 +2,7 @@ export default class Ui {
   constructor() {
     this.container = null;
     this.messages = null;
+    this.chatSection = null;
   }
 
   bindToDOM(container) {
@@ -16,6 +17,7 @@ export default class Ui {
     const chatSection = document.createElement('div');
     chatSection.classList.add('tickets');
     this.container.appendChild(chatSection);
+    this.chatSection = chatSection;
   }
 
   checkBinding() {
